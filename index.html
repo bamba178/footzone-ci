@@ -614,6 +614,7 @@
 
 
 <!-- ================= MATCHS ================= -->
+
 <div id="matches" class="page">
 
   <div class="page-title">
@@ -627,8 +628,6 @@
 
 </div>
 
-
- 
 
 <!-- ================= MONDE ================= -->
 
@@ -1073,9 +1072,6 @@
   if (localStorage.getItem("footzone_dark") === "true") {
     document.body.classList.add("dark");
   }
-
-</script>
-<script>
 async function loadMatches() {
 
   const container = document.getElementById("liveMatches");
@@ -1086,49 +1082,38 @@ async function loadMatches() {
       "https://api.football-data.org/v4/matches",
       {
         headers: {
-          "X-Auth-Token":"70ecb7d4dddc46ab886214d66aa76e70"
+          "X-Auth-Token": "70ecb7d4dddc46ab886214d66aa76e70"
         }
       }
     );
 
-    console.log(response.status);
-const data = await response.json();
-console.log(data);
+    const data = await response.json();
 
     let html = "";
 
     data.matches.slice(0, 20).forEach(match => {
 
       html += `
-        <div class="match">
-
-          <div class="match-top">
-            <span>${match.competition.name}</span>
-            <span>${match.status}</span>
-          </div>
-
-          <div class="teams">
-
-            <div class="team-name">
-              ${match.homeTeam.name}
-            </div>
-
-            <div class="match-score">
-              ${(match.score.fullTime.home ?? "-")}
-              -
-              ${(match.score.fullTime.away ?? "-")}
-            </div>
-
-            <div class="team-name">
-              ${match.awayTeam.name}
-            </div>
-
-          </div>
-
+      <div class="match">
+        <div class="match-top">
+          <span>${match.competition.name}</span>
+          <span>${match.status}</span>
         </div>
-      `;
+
+        <div class="teams">
+          <div class="team-name">${match.homeTeam.name}</div>
+
+          <div class="match-score">
+            ${(match.score.fullTime.home ?? "-")}
+            -
+            ${(match.score.fullTime.away ?? "-")}
+          </div>
+
+          <div class="team-name">${match.awayTeam.name}</div>
+        </div>
+      </div>`;
     });
-console.log(html);
+
     container.innerHTML = html;
 
   } catch (error) {
@@ -1137,9 +1122,11 @@ console.log(html);
       "Erreur lors du chargement des matchs.";
 
   }
+
 }
 
 loadMatches();
 </script>
+
 </body>
 </html>
