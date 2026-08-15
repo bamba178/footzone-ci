@@ -618,73 +618,15 @@
 <div id="matches" class="page">
 
   <div class="page-title">
-
-    <h2>⚽ Matchs</h2>
-
-    <p>
-      Matchs à venir et résultats
-    </p>
-
+    <h2>⚽ Matchs en direct</h2>
+    <p>Scores et résultats du monde entier</p>
   </div>
 
-
-  <div class="section">
-
-    <div class="match">
-
-      <div class="match-top">
-        <span>Premier League</span>
-        <span>18:00</span>
-      </div>
-
-      <div class="teams">
-
-        <div class="team-name">
-          🔴 Équipe A
-        </div>
-
-        <div class="match-score">
-          -
-        </div>
-
-        <div class="team-name">
-          🔵 Équipe B
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="match">
-
-      <div class="match-top">
-        <span>Ligue 1 Côte d'Ivoire</span>
-        <span>20:00</span>
-      </div>
-
-      <div class="teams">
-
-        <div class="team-name">
-          🟢 Club A
-        </div>
-
-        <div class="match-score">
-          -
-        </div>
-
-        <div class="team-name">
-          🟠 Club B
-        </div>
-
-      </div>
-
-    </div>
-
+  <div id="liveMatches" class="section">
+    Chargement des matchs...
   </div>
 
 </div>
-
 
 <!-- ================= MONDE ================= -->
 
@@ -1131,6 +1073,69 @@
   }
 
 </script>
+<script>
+async function loadMatches() {
 
+  const container = document.getElementById("liveMatches");
+
+  try {
+
+    const response = await fetch(
+      "https://api.football-data.org/v4/matches",
+      {
+        headers: {
+          "X-Auth-Token":70ecb7d4dddc46ab886214d66aa76e70
+        }
+      }
+    );
+
+    const data = await response.json();
+
+    let html = "";
+
+    data.matches.slice(0, 20).forEach(match => {
+
+      html += `
+        <div class="match">
+
+          <div class="match-top">
+            <span>${match.competition.name}</span>
+            <span>${match.status}</span>
+          </div>
+
+          <div class="teams">
+
+            <div class="team-name">
+              ${match.homeTeam.name}
+            </div>
+
+            <div class="match-score">
+              ${(match.score.fullTime.home ?? "-")}
+              -
+              ${(match.score.fullTime.away ?? "-")}
+            </div>
+
+            <div class="team-name">
+              ${match.awayTeam.name}
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    });
+
+    container.innerHTML = html;
+
+  } catch (error) {
+
+    container.innerHTML =
+      "Erreur lors du chargement des matchs.";
+
+  }
+}
+
+loadMatches();
+</script>
 </body>
 </html>
