@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#087f5b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <title>FootZone CI</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f6f5;
+      color: #17201d;
+      padding-bottom: 85px;
+    }
+
+    body.dark {
+      background: #111614;
+      color: #f5f5f5;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    /* HEADER */
+
+    header {
+      background: #087f5b;
+      color: white;
+      padding: 17px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      font-size: 31px;
+    }
+
+    .logo h1 {
+      font-size: 21px;
+    }
+
+    .logo p {
+      font-size: 11px;
+      opacity: .85;
+    }
+
+    .dark-button {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 22px;
+    }
+
+    /* PAGES */
+
+    .page {
+      display: none;
+      animation: fade .2s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* ACCUEIL */
+
+    .hero {
+      margin: 16px;
+      padding: 25px;
+      border-radius: 23px;
+      color: white;
+      background: linear-gradient(135deg, #087f5b, #12a579);
+    }
+
+    .hero small {
+      opacity: .85;
+    }
+
+    .hero h2 {
+      margin: 8px 0;
+      font-size: 27px;
+    }
+
+    .hero p {
+      font-size: 14px;
+      opacity: .9;
+    }
+
+    .section {
+      padding: 0 16px;
+      margin: 22px 0;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .section-title h2 {
+      font-size: 19px;
+    }
+
+    .section-title button {
+      background: none;
+      border: none;
+      color: #087f5b;
+      font-weight: bold;
+    }
+
+    /* MATCH */
+
+    .match {
+      background: white;
+      border-radius: 17px;
+      padding: 15px;
+      margin-bottom: 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.06);
+    }
+
+    body.dark .match,
+    body.dark .news,
+    body.dark .competition,
+    body.dark .team,
+    body.dark .article {
+      background: #1c2421;
+      color: white;
+    }
+
+    .match-top {
+      display: flex;
+      justify-content: space-between;
+      color: #77817d;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .teams {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .team-name {
+      width: 40%;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .team-logo {
+      font-size: 31px;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .match-score {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .live {
+      color: #e53935;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    /* RACCOURCIS */
+
+    .shortcuts {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 11px;
+      padding: 0 16px;
+    }
+
+    .shortcut {
+      border: none;
+      background: white;
+      border-radius: 17px;
+      padding: 18px 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+      font-size: 26px;
+    }
+
+    .shortcut span {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      margin-top: 7px;
+    }
+
+    /* ACTUALITÉS */
+
+    .article {
+      background: white;
+      border-radius: 17px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.06);
+    }
+
+    .article-image {
+      height: 120px;
+      background: linear-gradient(135deg, #087f5b, #ffc107);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 55px;
+    }
+
+    .article-content {
+      padding: 14px;
+    }
+
+    .article-content h3 {
+      font-size: 16px;
+      margin-bottom: 7px;
+    }
+
+    .article-content p {
+      color: #6c7772;
+      font-size: 13px;
+    }
+
+    /* PAGES INTERNES */
+
+    .page-title {
+      padding: 25px 16px 10px;
+    }
+
+    .page-title h2 {
+      font-size: 27px;
+    }
+
+    .page-title p {
+      color: #6b7571;
+      margin-top: 6px;
+    }
+
+    .competition {
+      background: white;
+      margin: 10px 16px;
+      padding: 17px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.05);
+    }
+
+    .competition-icon {
+      font-size: 31px;
+    }
+
+    .competition h3 {
+      font-size: 16px;
+    }
+
+    .competition p {
+      color: #75807b;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    /* CLASSEMENT */
+
+    .table {
+      margin: 16px;
+      background: white;
+      border-radius: 17px;
+      overflow: hidden;
+    }
+
+    .table-row {
+      display: grid;
+      grid-template-columns: 35px 1fr 40px 45px;
+      padding: 13px;
+      border-bottom: 1px solid #eee;
+      font-size: 13px;
+    }
+
+    body.dark .table {
+      background: #1c2421;
+    }
+
+    body.dark .table-row {
+      border-color: #303a36;
+    }
+
+    .table-head {
+      font-weight: bold;
+      background: #087f5b;
+      color: white;
+    }
+
+    /* FAVORIS */
+
+    .empty {
+      text-align: center;
+      padding: 55px 25px;
+      color: #77817d;
+    }
+
+    .empty-icon {
+      font-size: 55px;
+      margin-bottom: 15px;
+    }
+
+    /* RECHERCHE */
+
+    .search {
+      margin: 15px 16px;
+    }
+
+    .search input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 13px;
+      border: 1px solid #ddd;
+      font-size: 15px;
+      outline: none;
+    }
+
+    /* NAVIGATION */
+
+    .bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 73px;
+      background: white;
+      border-top: 1px solid #ddd;
+      display: flex;
+      justify-content: space-around;
+      z-index: 200;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    body.dark .bottom-nav {
+      background: #1b211f;
+      border-color: #303633;
+    }
+
+    .nav-button {
+      border: none;
+      background: none;
+      color: #78817e;
+      min-width: 58px;
+      font-size: 20px;
+    }
+
+    .nav-button span {
+      display: block;
+      font-size: 10px;
+      margin-top: 3px;
+    }
+
+    .nav-button.active {
+      color: #087f5b;
+      font-weight: bold;
+    }
+
+    /* PROFIL */
+
+    .profile {
+      text-align: center;
+      padding: 35px 20px;
+    }
+
+    .profile-icon {
+      width: 90px;
+      height: 90px;
+      margin: auto;
+      border-radius: 50%;
+      background: #087f5b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 45px;
+      color: white;
+    }
+
+    .profile h2 {
+      margin: 15px 0 5px;
+    }
+
+    .setting {
+      margin: 10px 0;
+      background: white;
+      padding: 17px;
+      border-radius: 14px;
+      text-align: left;
+    }
+
+    body.dark .setting {
+      background: #1c2421;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-content">
+
+    <div class="logo">
+      <div class="logo-icon">⚽</div>
+
+      <div>
+        <h1>FootZone CI</h1>
+        <p>Le football en un seul endroit</p>
+      </div>
+    </div>
+
+    <button class="dark-button" onclick="toggleDark()">
+      🌙
+    </button>
+
+  </div>
+</header>
+
+
+<!-- ================= ACCUEIL ================= -->
+
+<div id="home" class="page active">
+
+  <section class="hero">
+    <small>FOOTBALL MONDIAL • AFRICAIN • IVOIRIEN</small>
+
+    <h2>Bienvenue sur FootZone CI 🇨🇮</h2>
+
+    <p>
+      Suis les matchs, résultats, actualités
+      et classements de tes compétitions préférées.
+    </p>
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-title">
+
+      <h2>⚽ Matchs du jour</h2>
+
+      <button onclick="showPage('matches')">
+        Voir tout
+      </button>
+
+    </div>
+
+
+    <div class="match">
+
+      <div class="match-top">
+        <span>Football mondial</span>
+        <span>18:00</span>
+      </div>
+
+      <div class="teams">
+
+        <div class="team-name">
+          <span class="team-logo">⚪</span>
+          Équipe A
+        </div>
+
+        <div class="match-score">
+          -
+        </div>
+
+        <div class="team-name">
+          <span class="team-logo">🔵</span>
+          Équipe B
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="match">
+
+      <div class="match-top">
+        <span>🇨🇮 Côte d'Ivoire</span>
+        <span>20:00</span>
+      </div>
+
+      <div class="teams">
+
+        <div class="team-name">
+          <span class="team-logo">🟢</span>
+          Club A
+        </div>
+
+        <div class="match-score">
+          -
+        </div>
+
+        <div class="team-name">
+          <span class="team-logo">🟠</span>
+          Club B
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>🌍 Compétitions</h2>
+    </div>
+
+  </section>
+
+
+  <div class="shortcuts">
+
+    <button class="shortcut"
+            onclick="showPage('world')">
+      🌍
+      <span>Football mondial</span>
+    </button>
+
+    <button class="shortcut"
+            onclick="showPage('africa')">
+      🌍
+      <span>Football africain</span>
+    </button>
+
+    <button class="shortcut"
+            onclick="showPage('ivory')">
+      🇨🇮
+      <span>Football ivoirien</span>
+    </button>
+
+    <button class="shortcut"
+            onclick="showPage('standings')">
+      🏆
+      <span>Classements</span>
+    </button>
+
+  </div>
+
+
+  <section class="section">
+
+    <div class="section-title">
+      <h2>📰 Actualités</h2>
+    </div>
+
+    <div class="article">
+
+      <div class="article-image">
+        ⚽
+      </div>
+
+      <div class="article-content">
+
+        <h3>
+          Toute l'actualité du football au même endroit
+        </h3>
+
+        <p>
+          Les dernières informations du football mondial,
+          africain et ivoirien seront affichées ici.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<!-- ================= MATCHS ================= -->
+
+<div id="matches" class="page">
+
+  <div class="page-title">
+
+    <h2>⚽ Matchs</h2>
+
+    <p>
+      Matchs à venir et résultats
+    </p>
+
+  </div>
+
+
+  <div class="section">
+
+    <div class="match">
+
+      <div class="match-top">
+        <span>Premier League</span>
+        <span>18:00</span>
+      </div>
+
+      <div class="teams">
+
+        <div class="team-name">
+          🔴 Équipe A
+        </div>
+
+        <div class="match-score">
+          -
+        </div>
+
+        <div class="team-name">
+          🔵 Équipe B
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="match">
+
+      <div class="match-top">
+        <span>Ligue 1 Côte d'Ivoire</span>
+        <span>20:00</span>
+      </div>
+
+      <div class="teams">
+
+        <div class="team-name">
+          🟢 Club A
+        </div>
+
+        <div class="match-score">
+          -
+        </div>
+
+        <div class="team-name">
+          🟠 Club B
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ================= MONDE ================= -->
+
+<div id="world" class="page">
+
+  <div class="page-title">
+
+    <h2>🌍 Football mondial</h2>
+
+    <p>
+      Les grandes compétitions internationales
+    </p>
+
+  </div>
+
+
+  <div class="competition">
+    <div class="competition-icon">🏆</div>
+
+    <div>
+      <h3>Ligue des Champions</h3>
+      <p>Europe</p>
+    </div>
+  </div>
+
+
+  <div class="competition">
+    <div class="competition-icon">🏴</div>
+
+    <div>
+      <h3>Premier League</h3>
+      <p>Angleterre</p>
+    </div>
+  </div>
+
+
+  <div class="competition">
+    <div class="competition-icon">🇪🇸</div>
+
+    <div>
+      <h3>La Liga</h3>
+      <p>Espagne</p>
+    </div>
+  </div>
+
+
+  <div class="competition">
+    <div class="competition-icon">🇫🇷</div>
+
+    <div>
+      <h3>Ligue 1</h3>
+      <p>France</p>
+    </div>
+  </div>
+
+
+  <div class="competition">
+    <div class="competition-icon">🇮🇹</div>
+
+    <div>
+      <h3>Serie A</h3>
+      <p>Italie</p>
+    </div>
+  </div>
+
+
+  <div class="competition">
+    <div class="competition-icon">🇩🇪</div>
+
+    <div>
+      <h3>Bundesliga</h3>
+      <p>Allemagne</p>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ================= AFRIQUE ================= -->
+
+<div id="africa" class="page">
+
+  <div class="page-title">
+
+    <h2>🌍 Football africain</h2>
+
+    <p>
+      Le meilleur du football africain
+    </p>
+
+  </div>
+
+
+  <div class="competition">
+
+    <div class="competition-icon">
+      🏆
+    </div>
+
+    <div>
+      <h3>CAN</h3>
+      <p>Coupe d'Afrique des Nations</p>
+    </div>
+
+  </div>
+
+
+  <div class="competition">
+
+    <div class="competition-icon">
+      ⭐
+    </div>
+
+    <div>
+      <h3>Ligue des Champions CAF</h3>
+      <p>Clubs africains</p>
+    </div>
+
+  </div>
+
+
+  <div class="competition">
+
+    <div class="competition-icon">
+      🏆
+    </div>
+
+    <div>
+      <h3>Coupe de la Confédération CAF</h3>
+      <p>Football africain</p>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ================= COTE D'IVOIRE ================= -->
+
+<div id="ivory" class="page">
+
+  <div class="page-title">
+
+    <h2>🇨🇮 Côte d'Ivoire</h2>
+
+    <p>
+      Toute l'actualité du football ivoirien
+    </p>
+
+  </div>
+
+
+  <div class="competition">
+
+    <div class="competition-icon">
+      🇨🇮
+    </div>
+
+    <div>
+      <h3>Les Éléphants</h3>
+      <p>Équipe nationale de Côte d'Ivoire</p>
+    </div>
+
+  </div>
+
+
+  <div class="competition">
+
+    <div class="competition-icon">
+      🏆
+    </div>
+
+    <div>
+      <h3>Ligue 1</h3>
+      <p>Championnat ivoirien</p>
+    </div>
+
+  </div>
+
+
+  <div class="competition">
+
+    <div class="competition-icon">
+      ⚽
+    </div>
+
+    <div>
+      <h3>Ligue 2</h3>
+      <p>Championnat ivoirien</p>
+    </div>
+
+  </div>
+
+
+  <div class="competition">
+
+    <div class="competition-icon">
+      🏆
+    </div>
+
+    <div>
+      <h3>Coupe de Côte d'Ivoire</h3>
+      <p>Compétition nationale</p>
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ================= CLASSEMENTS ================= -->
+
+<div id="standings" class="page">
+
+  <div class="page-title">
+
+    <h2>🏆 Classements</h2>
+
+    <p>
+      Exemple de classement
+    </p>
+
+  </div>
+
+
+  <div class="table">
+
+    <div class="table-row table-head">
+
+      <div>#</div>
+      <div>Équipe</div>
+      <div>MJ</div>
+      <div>Pts</div>
+
+    </div>
+
+
+    <div class="table-row">
+
+      <div>1</div>
+      <div>Équipe A</div>
+      <div>10</div>
+      <div>25</div>
+
+    </div>
+
+
+    <div class="table-row">
+
+      <div>2</div>
+      <div>Équipe B</div>
+      <div>10</div>
+      <div>22</div>
+
+    </div>
+
+
+    <div class="table-row">
+
+      <div>3</div>
+      <div>Équipe C</div>
+      <div>10</div>
+      <div>19</div>
+
+    </div>
+
+
+    <div class="table-row">
+
+      <div>4</div>
+      <div>Équipe D</div>
+      <div>10</div>
+      <div>16</div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ================= FAVORIS ================= -->
+
+<div id="favorites" class="page">
+
+  <div class="page-title">
+
+    <h2>⭐ Favoris</h2>
+
+    <p>
+      Tes équipes préférées
+    </p>
+
+  </div>
+
+
+  <div class="empty">
+
+    <div class="empty-icon">
+      ⭐
+    </div>
+
+    <h3>
+      Aucun favori pour le moment
+    </h3>
+
+    <p style="margin-top:8px;">
+      Tu pourras sélectionner tes équipes
+      favorites dans une prochaine version.
+    </p>
+
+  </div>
+
+</div>
+
+
+<!-- ================= PROFIL ================= -->
+
+<div id="profile" class="page">
+
+  <div class="profile">
+
+    <div class="profile-icon">
+      👤
+    </div>
+
+    <h2>Mon profil</h2>
+
+    <p>
+      Personnalise ton expérience FootZone CI.
+    </p>
+
+
+    <div class="setting">
+      🔔 Notifications
+    </div>
+
+    <div class="setting">
+      ⭐ Mes équipes favorites
+    </div>
+
+    <div class="setting">
+      ⚙️ Paramètres
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- ================= NAVIGATION ================= -->
+
+<nav class="bottom-nav">
+
+  <button class="nav-button active"
+          onclick="showPage('home', this)">
+    🏠
+    <span>Accueil</span>
+  </button>
+
+
+  <button class="nav-button"
+          onclick="showPage('matches', this)">
+    ⚽
+    <span>Matchs</span>
+  </button>
+
+
+  <button class="nav-button"
+          onclick="showPage('world', this)">
+    🌍
+    <span>Monde</span>
+  </button>
+
+
+  <button class="nav-button"
+          onclick="showPage('ivory', this)">
+    🇨🇮
+    <span>CI</span>
+  </button>
+
+
+  <button class="nav-button"
+          onclick="showPage('favorites', this)">
+    ⭐
+    <span>Favoris</span>
+  </button>
+
+</nav>
+
+
+<script>
+
+  function showPage(pageId, button) {
+
+    document.querySelectorAll(".page").forEach(function(page) {
+      page.classList.remove("active");
+    });
+
+
+    const page = document.getElementById(pageId);
+
+    if (page) {
+      page.classList.add("active");
+    }
+
+
+    document.querySelectorAll(".nav-button").forEach(function(btn) {
+      btn.classList.remove("active");
+    });
+
+
+    if (button) {
+      button.classList.add("active");
+    }
+
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
+
+
+  function toggleDark() {
+
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+
+      localStorage.setItem("footzone_dark", "true");
+
+    } else {
+
+      localStorage.setItem("footzone_dark", "false");
+
+    }
+
+  }
+
+
+  if (localStorage.getItem("footzone_dark") === "true") {
+    document.body.classList.add("dark");
+  }
+
+</script>
+
+</body>
+</html>
