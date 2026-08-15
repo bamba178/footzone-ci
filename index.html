@@ -1087,7 +1087,11 @@ async function loadMatches() {
       }
     );
 
-    const data = await response.json();
+    if (!response.ok) {
+  throw new Error("API : " + response.status);
+}
+
+const data = await response.json();
 
     let html = "";
 
@@ -1114,13 +1118,10 @@ async function loadMatches() {
       </div>`;
     });
 
-    container.innerHTML = html;
+  console.log(error);
 
-catch (error) {
-
-  container.innerHTML =
-    "Erreur : " + error.message;
-
+container.innerHTML =
+  "Erreur : " + error.message;
 }
 
   }
