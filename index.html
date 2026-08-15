@@ -1180,14 +1180,18 @@ document.getElementById("liveMatches").innerHTML =
       `;
     });
 
-    container.innerHTML = html || "Aucun match en direct.";
+    container.innerHTML = html || "Aucun match en catch (error) {
 
-  } catch (error) {
+  catch (error) {
 
-    console.error(error);
+  console.error(error);
 
-    container.innerHTML =
-      "Erreur API Football";
+  container.innerHTML =
+    "<pre>" + error.message + "</pre>";
+
+}
+
+}
 
   }
 }
