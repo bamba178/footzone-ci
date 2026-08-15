@@ -614,7 +614,6 @@
 
 
 <!-- ================= MATCHS ================= -->
-
 <div id="matches" class="page">
 
   <div class="page-title">
@@ -627,6 +626,9 @@
   </div>
 
 </div>
+
+
+ 
 
 <!-- ================= MONDE ================= -->
 
@@ -1084,12 +1086,14 @@ async function loadMatches() {
       "https://api.football-data.org/v4/matches",
       {
         headers: {
-          "X-Auth-Token":70ecb7d4dddc46ab886214d66aa76e70
+          "X-Auth-Token":"70ecb7d4dddc46ab886214d66aa76e70"
         }
       }
     );
 
-    const data = await response.json();
+    console.log(response.status);
+const data = await response.json();
+console.log(data);
 
     let html = "";
 
@@ -1124,7 +1128,7 @@ async function loadMatches() {
         </div>
       `;
     });
-
+console.log(html);
     container.innerHTML = html;
 
   } catch (error) {
