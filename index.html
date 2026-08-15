@@ -1116,10 +1116,12 @@ async function loadMatches() {
 
     container.innerHTML = html;
 
-  } catch (error) {
+catch (error) {
 
-    container.innerHTML =
-      "Erreur lors du chargement des matchs.";
+  container.innerHTML =
+    "Erreur : " + error.message;
+
+}
 
   }
 
